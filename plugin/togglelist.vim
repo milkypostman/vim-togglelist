@@ -38,6 +38,7 @@ function! ToggleLocationList()
   catch /E776/
       echohl ErrorMsg 
       echo "Location List is Empty."
+      echohl None
       return
   endtry
   if winbufnr(0) == nextbufnr
