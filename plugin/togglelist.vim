@@ -4,7 +4,7 @@
 "
 " boom
 "
-" This plugin allows you to use \l and \e to toggle the location list and
+" This plugin allows you to use \l and \q to toggle the location list and
 " quickfix list (respectively).
 "
 "
