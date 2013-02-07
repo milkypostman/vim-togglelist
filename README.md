@@ -23,7 +23,7 @@ The default mappings are:
     nmap <script> <silent> <leader>l :call ToggleLocationList()<CR>
     nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
 
-You can easily unmap these and remap them if you want, both `ToggleLocationList` and `ToggleQuickfixList` are global functions. I imagine the names of the functions are self-explanatory.
+You can prevent these mappings by setting `g:toggle_list_no_mappings` in your `.vimrc` and then remap them if you want--both `ToggleLocationList` and `ToggleQuickfixList` are global functions. I imagine the names of the functions are self-explanatory.
 
 After opening or closing either list, the previous window is restored so you can still use `<C-w>p`.
 

@@ -70,8 +70,10 @@ function! ToggleQuickfixList()
   endif
 endfunction
 
-nmap <script> <silent> <leader>l :call ToggleLocationList()<CR>
-nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
+if !exists("g:toggle_list_no_mappings")
+    nmap <script> <silent> <leader>l :call ToggleLocationList()<CR>
+    nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
+endif
 
 
 
