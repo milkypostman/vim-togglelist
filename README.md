@@ -27,4 +27,11 @@ You can prevent these mappings by setting `g:toggle_list_no_mappings` in your `.
 
 After opening or closing either list, the previous window is restored so you can still use `<C-w>p`.
 
+## Customization
+
+You can specify which command you want to use to open a quickfix list(in case you are using some plugin) like:
+
+``` vim
+let g:toggle_list_copen_command="Copen"
+```
 
