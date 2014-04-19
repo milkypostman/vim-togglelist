@@ -13,11 +13,11 @@ if exists("g:loaded_toggle_list")
   finish
 endif
 
-function! s:GetBufferList() 
-  redir =>buflist 
-  silent! ls 
-  redir END 
-  return buflist 
+function! s:GetBufferList()
+  redir =>buflist
+  silent! ls
+  redir END
+  return buflist
 endfunction
 
 function! ToggleLocationList()
@@ -36,7 +36,7 @@ function! ToggleLocationList()
   try
     lopen
   catch /E776/
-      echohl ErrorMsg 
+      echohl ErrorMsg
       echo "Location List is Empty."
       echohl None
       return
@@ -59,7 +59,7 @@ function! ToggleLocationList()
 endfunction
 
 function! ToggleQuickfixList()
-  for bufnum in map(filter(split(s:GetBufferList(), '\n'), 'v:val =~ "Quickfix List"'), 'str2nr(matchstr(v:val, "\\d\\+"))') 
+  for bufnum in map(filter(split(s:GetBufferList(), '\n'), 'v:val =~ "Quickfix List"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
     if bufwinnr(bufnum) != -1
       cclose
       return
