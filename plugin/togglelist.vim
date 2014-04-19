@@ -41,19 +41,21 @@ function! ToggleLocationList()
       echohl None
       return
   endtry
-  if winbufnr(0) == nextbufnr
-    lclose
-    if prevwinnr > winnr
-      let prevwinnr-=1
+  if g:toggle_list_restore
+    if winbufnr(0) == nextbufnr
+      lclose
+      if prevwinnr > winnr
+        let prevwinnr-=1
+      endif
+    else
+      if prevwinnr > winnr
+        let prevwinnr+=1
+      endif
     endif
-  else
-    if prevwinnr > winnr
-      let prevwinnr+=1
-    endif
+    " restore previous window
+    exec prevwinnr."wincmd w"
+    exec winnr."wincmd w"
   endif
-  " restore previous window
-  exec prevwinnr."wincmd w"
-  exec winnr."wincmd w"
 endfunction
 
 function! ToggleQuickfixList()
@@ -69,8 +71,10 @@ function! ToggleQuickfixList()
   else
     copen
   endif
-  if winnr() != winnr
-    wincmd p
+  if g:toggle_list_restore
+    if winnr() != winnr
+      wincmd p
+    endif
   endif
 endfunction
 
@@ -79,5 +83,7 @@ if !exists("g:toggle_list_no_mappings")
     nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
 endif
 
-
+if !exists("g:toggle_list_restore")
+    let g:toggle_list_restore = 1
+endif
 
