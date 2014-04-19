@@ -35,3 +35,8 @@ You can specify which command you want to use to open a quickfix list(in case yo
 let g:toggle_list_copen_command="Copen"
 ```
 
+By default vim-togglelist will keep restore focus to the window you were editing before the quicklist window was opened. If you would like to have the focus on the Location List (or the QuickFix List) you can set
+
+``` vim
+let g:toggle_list_restore=0
+```

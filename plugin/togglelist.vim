@@ -13,11 +13,11 @@ if exists("g:loaded_toggle_list")
   finish
 endif
 
-function! s:GetBufferList() 
-  redir =>buflist 
-  silent! ls 
-  redir END 
-  return buflist 
+function! s:GetBufferList()
+  redir =>buflist
+  silent! ls
+  redir END
+  return buflist
 endfunction
 
 function! ToggleLocationList()
@@ -36,28 +36,30 @@ function! ToggleLocationList()
   try
     lopen
   catch /E776/
-      echohl ErrorMsg 
+      echohl ErrorMsg
       echo "Location List is Empty."
       echohl None
       return
   endtry
-  if winbufnr(0) == nextbufnr
-    lclose
-    if prevwinnr > winnr
-      let prevwinnr-=1
+  if g:toggle_list_restore
+    if winbufnr(0) == nextbufnr
+      lclose
+      if prevwinnr > winnr
+        let prevwinnr-=1
+      endif
+    else
+      if prevwinnr > winnr
+        let prevwinnr+=1
+      endif
     endif
-  else
-    if prevwinnr > winnr
-      let prevwinnr+=1
-    endif
+    " restore previous window
+    exec prevwinnr."wincmd w"
+    exec winnr."wincmd w"
   endif
-  " restore previous window
-  exec prevwinnr."wincmd w"
-  exec winnr."wincmd w"
 endfunction
 
 function! ToggleQuickfixList()
-  for bufnum in map(filter(split(s:GetBufferList(), '\n'), 'v:val =~ "Quickfix List"'), 'str2nr(matchstr(v:val, "\\d\\+"))') 
+  for bufnum in map(filter(split(s:GetBufferList(), '\n'), 'v:val =~ "Quickfix List"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
     if bufwinnr(bufnum) != -1
       cclose
       return
@@ -69,8 +71,10 @@ function! ToggleQuickfixList()
   else
     copen
   endif
-  if winnr() != winnr
-    wincmd p
+  if g:toggle_list_restore
+    if winnr() != winnr
+      wincmd p
+    endif
   endif
 endfunction
 
@@ -79,5 +83,7 @@ if !exists("g:toggle_list_no_mappings")
     nmap <script> <silent> <leader>q :call ToggleQuickfixList()<CR>
 endif
 
-
+if !exists("g:toggle_list_restore")
+    let g:toggle_list_restore = 1
+endif
 
