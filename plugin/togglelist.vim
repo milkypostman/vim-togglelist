@@ -15,7 +15,7 @@ endif
 
 function! s:GetBufferList() 
   redir =>buflist 
-  silent! ls 
+  silent! ls! 
   redir END 
   return buflist 
 endfunction
